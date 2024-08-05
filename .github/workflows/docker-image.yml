@@ -3,7 +3,7 @@ name: Build and Deploy Docker Image
 on:
   push:
     branches:
-      - main
+      - master
  
 jobs:
   build:
@@ -31,8 +31,7 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
  
-    - name: Build Docker image
-        run: docker build . -t ghcr.io/${{ github.repository_owner }}/my-angular-app:${{ github.sha }}
- 
-    - name: Push Docker image to GitHub Container Registry
-        run: docker push ghcr.io/${{ github.repository_owner }}/my-angular-app:${{ github.sha }}
+    - name: Build and push Docker image to GitHub Container Registry
+      run: |
+       docker build . -t ghcr.io/${{ github.repository_owner }}/angular-githubactions-poc:${{ github.sha }}
+       docker push ghcr.io/${{ github.repository_owner }}/angular-githubactions-poc:${{ github.sha }}
